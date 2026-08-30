@@ -1,0 +1,72 @@
+# Node.js dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production build outputs
+.next/
+out/
+build/
+dist/
+
+# TypeScript Build Cache
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Ephemeral runtime data & uploads
+uploads/*
+!uploads/.gitkeep
+
+# Development SSL/TLS Certificates & Private Keys
+certs/*
+!certs/.gitkeep
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env*.local
+
+# Internal Scratch & Test Runners
+scratch/
+
+# Test Coverage & Artifacts
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# Logs & Debugging Output
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS-Specific Metadata
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE & Editor Metadata
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
