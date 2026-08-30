@@ -4,7 +4,7 @@ import crypto from "crypto";
 import { FileAttachmentMetadata } from "../types";
 import { securityAudit } from "./securityAudit";
 
-const UPLOAD_DIR = path.join(process.cwd(), "uploads");
+const UPLOAD_DIR = path.join("/tmp", "phantom-room-uploads");
 const SECRET_KEY = process.env.PHANTOM_JWT_SECRET || "phantom_super_secret_ephemeral_key_2026";
 
 // Ensure upload directory exists
