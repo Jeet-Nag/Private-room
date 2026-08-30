@@ -5,6 +5,7 @@ import { useRoom } from "../../lib/store/roomStore";
 import { formatFileSize, formatTime } from "../../lib/utils/formatters";
 import { stripImageMetadata } from "../../lib/security/metadataStripper";
 import { FileAttachmentMetadata } from "../../../server/types";
+import { getApiUrl } from "../../lib/utils/apiUrl";
 import {
   UploadCloud,
   FileText,
@@ -45,7 +46,7 @@ export const MediaGalleryPanel: React.FC = () => {
         formData.append("roomId", room.id);
         if (sessionToken) formData.append("token", sessionToken);
 
-        const res = await fetch("/api/uploads", {
+        const res = await fetch(getApiUrl("/api/uploads"), {
           method: "POST",
           body: formData,
         });
@@ -160,11 +161,11 @@ export const MediaGalleryPanel: React.FC = () => {
                 {/* Media Preview Box */}
                 {item.meta.category === "image" ? (
                   <div
-                    onClick={() => setLightboxUrl(item.meta.downloadUrl)}
+                    onClick={() => setLightboxUrl(getApiUrl(item.meta.downloadUrl))}
                     className="relative w-full h-36 bg-surface-200 cursor-pointer overflow-hidden"
                   >
                     <img
-                      src={item.meta.downloadUrl}
+                      src={getApiUrl(item.meta.downloadUrl)}
                       alt={item.meta.fileName}
                       className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                     />
@@ -175,7 +176,7 @@ export const MediaGalleryPanel: React.FC = () => {
                 ) : item.meta.category === "video" ? (
                   <div className="w-full h-36 bg-surface-200">
                     <video
-                      src={item.meta.downloadUrl}
+                      src={getApiUrl(item.meta.downloadUrl)}
                       controls
                       className="w-full h-full object-cover"
                     />
@@ -201,7 +202,7 @@ export const MediaGalleryPanel: React.FC = () => {
                   </div>
 
                   <a
-                    href={item.meta.downloadUrl}
+                    href={getApiUrl(item.meta.downloadUrl)}
                     download={item.meta.fileName}
                     className="p-2 rounded-lg bg-surface-200 hover:bg-white/10 text-slate-300 hover:text-white transition flex-shrink-0"
                     title="Download File"
@@ -222,9 +223,9 @@ export const MediaGalleryPanel: React.FC = () => {
           className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4 cursor-zoom-out"
         >
           <img
-            src={lightboxUrl}
-            alt="Fullscreen preview"
-            className="max-w-full max-h-[90vh] object-contain rounded-2xl border border-white/20 shadow-2xl"
+            src={getApiUrl(lightboxUrl)}
+            alt="Preview"
+            className="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl"
           />
         </div>
       )}

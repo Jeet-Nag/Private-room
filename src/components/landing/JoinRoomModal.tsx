@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { X, Lock, KeyRound, ArrowRight, ShieldCheck } from "lucide-react";
+import { getApiUrl } from "../../lib/utils/apiUrl";
 
 interface JoinRoomModalProps {
   isOpen: boolean;
@@ -88,7 +89,7 @@ export const JoinRoomModal: React.FC<JoinRoomModalProps> = ({
     setError(null);
 
     try {
-      const res = await fetch("/api/rooms/join", {
+      const res = await fetch(getApiUrl("/api/rooms/join"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { X, Shield, Lock, Clock, Users, Copy, Check, Sparkles, ArrowRight, Video, Mic, Share2, FileText, Music } from "lucide-react";
 import { RoomSettings } from "../../../server/types";
+import { getApiUrl } from "../../lib/utils/apiUrl";
 
 interface CreateRoomModalProps {
   isOpen: boolean;
@@ -54,7 +55,7 @@ export const CreateRoomModal: React.FC<CreateRoomModalProps> = ({ isOpen, onClos
         passphrase: passphrase.trim() || undefined,
       };
 
-      const res = await fetch("/api/rooms", {
+      const res = await fetch(getApiUrl("/api/rooms"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

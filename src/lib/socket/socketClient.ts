@@ -1,4 +1,5 @@
 import { io, Socket } from "socket.io-client";
+import { getWsUrl } from "../utils/apiUrl";
 
 class SocketClientManager {
   private socket: Socket | null = null;
@@ -6,7 +7,8 @@ class SocketClientManager {
 
   public getSocket(token?: string): Socket {
     if (!this.socket) {
-      this.socket = io({
+      const wsGateway = getWsUrl();
+      this.socket = io(wsGateway, {
         autoConnect: false,
         reconnection: true,
         reconnectionAttempts: 10,

@@ -5,6 +5,7 @@ import { useRoom } from "../../lib/store/roomStore";
 import { formatTime, formatFileSize } from "../../lib/utils/formatters";
 import { stripImageMetadata } from "../../lib/security/metadataStripper";
 import { ChatMessage, FileAttachmentMetadata } from "../../../server/types";
+import { getApiUrl } from "../../lib/utils/apiUrl";
 import {
   Send,
   Paperclip,
@@ -104,7 +105,7 @@ export const ChatPanel: React.FC = () => {
       formData.append("roomId", room.id);
       if (sessionToken) formData.append("token", sessionToken);
 
-      const res = await fetch("/api/uploads", {
+      const res = await fetch(getApiUrl("/api/uploads"), {
         method: "POST",
         body: formData,
       });
@@ -281,11 +282,11 @@ export const ChatPanel: React.FC = () => {
                           {/* Image preview */}
                           {msg.fileMetadata.category === "image" && (
                             <div
-                              onClick={() => setLightboxMedia(msg.fileMetadata?.downloadUrl || null)}
+                              onClick={() => setLightboxMedia(getApiUrl(msg.fileMetadata?.downloadUrl || ""))}
                               className="cursor-pointer rounded-lg overflow-hidden border border-white/10 max-w-sm hover:opacity-90 transition"
                             >
                               <img
-                                src={msg.fileMetadata.downloadUrl}
+                                src={getApiUrl(msg.fileMetadata.downloadUrl)}
                                 alt={msg.fileMetadata.fileName}
                                 className="w-full max-h-64 object-cover"
                               />
@@ -296,7 +297,7 @@ export const ChatPanel: React.FC = () => {
                           {msg.fileMetadata.category === "video" && (
                             <div className="rounded-lg overflow-hidden border border-white/10 max-w-sm">
                               <video
-                                src={msg.fileMetadata.downloadUrl}
+                                src={getApiUrl(msg.fileMetadata.downloadUrl)}
                                 controls
                                 className="w-full max-h-64"
                               />
@@ -307,7 +308,7 @@ export const ChatPanel: React.FC = () => {
                           {msg.fileMetadata.category === "audio" && (
                             <div className="p-2 rounded-lg bg-surface-200 border border-white/10">
                               <audio
-                                src={msg.fileMetadata.downloadUrl}
+                                src={getApiUrl(msg.fileMetadata.downloadUrl)}
                                 controls
                                 className="w-full h-8"
                               />
@@ -329,7 +330,7 @@ export const ChatPanel: React.FC = () => {
                             </div>
 
                             <a
-                              href={msg.fileMetadata.downloadUrl}
+                              href={getApiUrl(msg.fileMetadata.downloadUrl)}
                               download={msg.fileMetadata.fileName}
                               className="p-1.5 rounded bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition flex-shrink-0"
                               title="Download File"

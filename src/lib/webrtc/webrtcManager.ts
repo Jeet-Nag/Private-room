@@ -56,7 +56,8 @@ export class WebRTCManager {
 
   public async fetchIceServers(): Promise<void> {
     try {
-      const res = await fetch("/api/ice-servers");
+      const endpoint = typeof window !== "undefined" ? (await import("../utils/apiUrl")).getApiUrl("/api/ice-servers") : "/api/ice-servers";
+      const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
         if (data.iceServers && Array.isArray(data.iceServers) && data.iceServers.length > 0) {
